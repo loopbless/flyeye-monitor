@@ -1,0 +1,32 @@
+<div class="btm-login-container">
+  <h1>前端监控系统</h1>
+  <nz-card class="btm-login-card">
+    <form nz-form [formGroup]='form'>
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group [nzPrefix]="suffixIconUser" nzSize="large">
+            <input nz-input formControlName="username" placeholder="请输入用户名/邮箱/手机号">
+          </nz-input-group>
+          <ng-template #suffixIconUser>
+            <i nz-icon nzType="user"></i>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group [nzPrefix]="suffixIconLock" nzSize="large">
+            <input nz-input formControlName="password" type="password" placeholder="请输入密码">
+          </nz-input-group>
+          <ng-template #suffixIconLock>
+            <i nz-icon nzType="lock"></i>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control>
+          <button nz-button nzBlock nzSize="large" nzType="primary" (click)='onLogin()'>登 录</button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </nz-card>
+</div>

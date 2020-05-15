@@ -14,7 +14,11 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@bigtree/monitor": ["src/libs/index.ts"],
+      "@apis/*": ["src/app/core/apis/*.api.ts"]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

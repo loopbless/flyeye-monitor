@@ -1,0 +1,33 @@
+@import '~ng-zorro-antd/style/index';
+
+.btm-app-item {
+  padding: @padding-sm;
+  height: 258px;
+  .btm-app-item-header {
+    font-weight: bold;
+    padding-left: @padding-sm;
+    margin-bottom: @margin-sm;
+    display: flex;
+    justify-content: space-between;
+  }
+  &.btm-app-plus {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    i {
+      font-size: 30px;
+    }
+  }
+}
+
+.btm-badge-error {
+  ::ng-deep {
+    .ant-badge-status-dot {
+      background-color: @red-5;
+
+      &:after {
+        border-color: @red-5;
+      }
+    }
+  }
+}

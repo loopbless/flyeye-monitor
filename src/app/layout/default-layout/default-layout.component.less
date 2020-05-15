@@ -1,0 +1,96 @@
+@import '~ng-zorro-antd/style/index';
+
+.btm-layout {
+  height: 100%;
+}
+
+.btm-logo {
+  width: 80px;
+  text-align: center;
+  font-size: 32px;
+  font-family: 'Courgette', cursive;
+  box-sizing: content-box;
+
+  span {
+    &:nth-child(2n+1) {
+      color: @primary-color;
+    }
+
+    &:nth-child(2n) {
+      color: @error-color;
+    }
+  }
+}
+
+.btm-header {
+  padding: 0;
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+
+  .btm-header-right {
+    width: 100px;
+    margin-right: 24px;
+  }
+
+  nz-avatar {
+    margin-right: 8px;
+  }
+
+  a[nz-dropdown] {
+    display: inline-block;
+    line-height: 32px;
+  }
+}
+
+.btm-header-left {
+  display: flex;
+  align-items: center;
+
+  nz-select {
+    min-width: 200px;
+    position: relative;
+    &:before {
+      content: '';
+      position: absolute;
+      height: 40%;
+      z-index: 1;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      border-left: 1px dashed #f0f0f0;
+    }
+  }
+
+  ::ng-deep {
+    .ant-select-selector {
+      padding: 0 16px !important;
+      border: 0;
+      box-shadow: none !important;
+    }
+  }
+}
+
+.btm-content-wrapper {
+  display: flex;
+
+  .btm-layout-container {
+    flex: 1;
+  }
+
+  ::ng-deep {
+    .ant-menu-vertical {
+      border: 0;
+    }
+  }
+}
+
+.btm-menu {
+  .btm-menu-item {
+    margin: 0;
+    cursor: pointer;
+    height: 64px;
+    line-height: 64px;
+    outline: 0;
+  }
+}
