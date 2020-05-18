@@ -1,0 +1,67 @@
+  <form nz-form>
+    <nz-form-item>
+      <nz-form-label nzSpan="8">数据类型</nz-form-label>
+      <nz-form-control nzSpan="12">
+        <ng-container *ngIf="data && data.webhook;else typeTmpl">
+          {{data.webhook}}
+        </ng-container>
+        <ng-template #typeTmpl>
+          <input nz-input placeholder="请输入需要报警的数据类型">
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzSpan="8">数据标签</nz-form-label>
+      <nz-form-control nzSpan="12">
+        <ng-container *ngIf="data && data.webhook;else tagTmpl">
+          {{data.webhook}}
+        </ng-container>
+        <ng-template #tagTmpl>
+          <input nz-input placeholder="请输入需要报警数据携带标签">
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzSpan="8">报警方式</nz-form-label>
+      <nz-form-control nzSpan="12">
+        <ng-container *ngIf="data && data.webhook;else methodTmpl">
+          {{data.webhook}}
+        </ng-container>
+        <ng-template #methodTmpl>
+          <nz-select nzPlaceHolder="请选择">
+            <nz-option nzValue="email" nzLabel="邮箱"></nz-option>
+            <nz-option nzValue="webhook" nzLabel="WebHook"></nz-option>
+            <nz-option nzValue="mobile" nzLabel="手机短信" nzDisabled></nz-option>
+          </nz-select>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzSpan="8">报警源信息</nz-form-label>
+      <nz-form-control nzSpan="12">
+        <ng-container *ngIf="data && data.webhook;else targetTmpl">
+          {{data.webhook}}
+        </ng-container>
+        <ng-template #targetTmpl>
+          <input nz-input placeholder="邮箱/WebHook地址">
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label nzSpan="8">内容模板</nz-form-label>
+      <nz-form-control nzSpan="12">
+        <ng-container *ngIf="data && data.webhook;else contentTmpl">
+          {{data.webhook}}
+        </ng-container>
+        <ng-template #contentTmpl>
+          <textarea nz-input placeholder="请输入报警内容模板信息"></textarea>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-control nzOffset="8" nzSpan="12">
+        <button nz-button nzType="primary" (click)="onSubmit()">提 交</button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>

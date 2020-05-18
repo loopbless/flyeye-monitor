@@ -1,11 +1,13 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { LayoutComponent } from './layout';
+import { DefaultGuard } from './core/guards/default.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
+    canActivateChild: [DefaultGuard],
     children: [
       {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
       {

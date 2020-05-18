@@ -4,7 +4,6 @@ import { computeStackTrace } from './tracekit';
 export class MonitorErrorsHandler extends ErrorHandler {
   handleError(error) {
     computeStackTrace(error);
-    console.log(error)
     super.handleError(error);
   }
 }

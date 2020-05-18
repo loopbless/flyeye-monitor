@@ -1,63 +1,21 @@
+<nz-page-header class="btm-page-header">
+  <nz-page-header-title>创建应用</nz-page-header-title>
+  <nz-page-header-subtitle>创建一个监控应用</nz-page-header-subtitle>
+  <nz-page-header-extra>
+    <button nz-button nzType="link"><i nz-icon nzType="arrow-left"></i>返回</button>
+  </nz-page-header-extra>
+</nz-page-header>
 <div nz-row>
-  <nz-card nzTitle="创建应用" nz-col nzMd="24" nzLg="12">
-    <form nz-form>
+  <nz-card nz-col nzMd="24" nzLg="12" nzTitle="应用信息">
+    <form nz-form [formGroup]="formGroup">
       <nz-form-item>
         <nz-form-label nzSpan="8" nzRequired>应用名称</nz-form-label>
         <nz-form-control nzSpan="12">
           <ng-container *ngIf="data && data.name;else nameTmpl">
-            {{data.name}}
+            {{formGroup.get('name').value}}
           </ng-container>
           <ng-template #nameTmpl>
-            <input nz-input placeholder="请输入应用名称">
-          </ng-template>
-        </nz-form-control>
-      </nz-form-item>
-      <nz-divider nzText="报警通知" nzType="horizontal" nzOrientation="left" nzDashed></nz-divider>
-      <nz-form-item>
-        <nz-form-label nzSpan="8">数据类型</nz-form-label>
-        <nz-form-control nzSpan="12">
-          <ng-container *ngIf="data && data.webhook;else typeTmpl">
-            {{data.webhook}}
-          </ng-container>
-          <ng-template #typeTmpl>
-            <input nz-input placeholder="请输入需要报警的数据类型">
-          </ng-template>
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-label nzSpan="8">数据标签</nz-form-label>
-        <nz-form-control nzSpan="12">
-          <ng-container *ngIf="data && data.webhook;else tagTmpl">
-            {{data.webhook}}
-          </ng-container>
-          <ng-template #tagTmpl>
-            <input nz-input placeholder="请输入需要报警数据携带标签">
-          </ng-template>
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-label nzSpan="8">报警方式</nz-form-label>
-        <nz-form-control nzSpan="12">
-          <ng-container *ngIf="data && data.webhook;else methodTmpl">
-            {{data.webhook}}
-          </ng-container>
-          <ng-template #methodTmpl>
-            <nz-select nzPlaceHolder="请选择">
-              <nz-option nzValue="email" nzLabel="邮箱"></nz-option>
-              <nz-option nzValue="webhook" nzLabel="WebHook"></nz-option>
-              <nz-option nzValue="mobile" nzLabel="手机短信" nzDisabled></nz-option>
-            </nz-select>
-          </ng-template>
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-label nzSpan="8">报警源信息</nz-form-label>
-        <nz-form-control nzSpan="12">
-          <ng-container *ngIf="data && data.webhook;else targetTmpl">
-            {{data.webhook}}
-          </ng-container>
-          <ng-template #targetTmpl>
-            <input nz-input placeholder="邮箱/WebHook地址">
+            <input nz-input formControlName="name" placeholder="请输入应用名称">
           </ng-template>
         </nz-form-control>
       </nz-form-item>
@@ -76,12 +34,39 @@
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
+        <nz-form-label nzSpan="8">版本标签</nz-form-label>
+        <nz-form-control nzSpan="12">
+          <ng-container *ngIf="data && data.name;else versionTmpl">
+            {{formGroup.get('tags').value}}
+          </ng-container>
+          <ng-template #versionTmpl>
+            <nz-tag *ngFor="let tag of formGroup.get('tags').value; let i = index" nzMode="closeable" (nzOnClose)="onTagClose(tag)">
+            {{ tag }}
+            </nz-tag>
+            <nz-tag *ngIf="!tagVisible" class="editable-tag" nzNoAnimation (click)="showInput()"> <i nz-icon nzType="plus"></i> New Tag</nz-tag>
+            <input
+              #tagElem
+              nz-input
+              nzSize="small"
+              *ngIf="tagVisible"
+              type="text"
+              maxlength="20"
+              formControlName="newTag"
+              style="width: 78px;"
+              (blur)="onAddTag()"
+              (keydown.enter)="onAddTag()"
+            />
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
         <nz-form-control nzOffset="8" nzSpan="12">
           <button nz-button nzType="primary" (click)="onSubmit()">提 交</button>
         </nz-form-control>
       </nz-form-item>
     </form>
   </nz-card>
-  <nz-card nzTitle="部署说明" nz-col nzMd="24" nzLg="12">
+  <nz-card nz-col nzMd="24" nzLg="12" nzTitle="警报设置">
+    <router-outlet></router-outlet>
   </nz-card>
 </div>

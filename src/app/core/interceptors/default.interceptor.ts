@@ -10,6 +10,7 @@ import {
 import { PassportService } from '../services/passport.service';
 import { Router } from '@angular/router';
 import { catchError, tap } from 'rxjs/operators';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Injectable()
 export class DefaultInterceptor implements HttpInterceptor {
@@ -18,6 +19,7 @@ export class DefaultInterceptor implements HttpInterceptor {
 
   constructor(private passport: PassportService,
               private router: Router,
+              private message: NzMessageService,
               private notification: NzNotificationService) {
   }
 
@@ -31,6 +33,8 @@ export class DefaultInterceptor implements HttpInterceptor {
         if (error instanceof HttpErrorResponse) {
           if (error.status === 401) {
             this.loginFailure();
+          } else {
+            this.message.error(error.error.message);
           }
         }
         return throwError(error);
@@ -38,9 +42,11 @@ export class DefaultInterceptor implements HttpInterceptor {
   }
 
   private passportHandler(req) {
-    if(!req.params.get('passport_allowed')) {
+    if (!req.params.get('passport_allowed')) {
       const token = this.passport.getToken();
-      if (!token) this.loginFailure();
+      if (!token) {
+        this.loginFailure(false);
+      }
       return req.clone({
         headers: req.headers.set('Authorization', token)
       });
@@ -48,16 +54,18 @@ export class DefaultInterceptor implements HttpInterceptor {
     return req;
   }
 
-  loginFailure() {
+  loginFailure(notice = true) {
     if (!this.loginNotification) {
-      this.loginNotification = this.notification.create(
-        'info',
-        '登录失效',
-        '您的登录状态已失效，请重新登录！'
-      );
-      this.loginNotification.onClose.subscribe(() => {
-        this.loginNotification = null;
-      });
+      if (notice) {
+        this.loginNotification = this.notification.create(
+          'info',
+          '登录失效',
+          '您的登录状态已失效，请重新登录！'
+        );
+        this.loginNotification.onClose.subscribe(() => {
+          this.loginNotification = null;
+        });
+      }
       this.router.navigate(['/passport/login']);
     }
   }

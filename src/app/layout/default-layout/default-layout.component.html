@@ -9,7 +9,7 @@
     <div class="btm-header-right">
       <nz-avatar nzIcon="user" nzSrc="//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>
       <a nz-dropdown [nzDropdownMenu]="menu">
-        {{user.username}}
+        {{user?.username}}
         <i nz-icon nzType="down"></i>
       </a>
       <nz-dropdown-menu #menu="nzDropdownMenu">

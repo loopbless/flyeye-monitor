@@ -5,6 +5,7 @@ import { IconDefinition } from '@ant-design/icons-angular';
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { DefaultInterceptor } from './interceptors/default.interceptor';
+import { NzMessageModule } from 'ng-zorro-antd/message';
 import {
   UserOutline,
   LockOutline,
@@ -13,7 +14,8 @@ import {
   BugOutline,
   PlusOutline,
   MonitorOutline,
-  SettingOutline
+  SettingOutline,
+  ArrowLeftOutline
 } from '@ant-design/icons-angular/icons';
 
 const icons: IconDefinition[] = [
@@ -25,6 +27,7 @@ const icons: IconDefinition[] = [
   PlusOutline,
   MonitorOutline,
   SettingOutline,
+  ArrowLeftOutline,
 ];
 
 @NgModule({
@@ -32,7 +35,8 @@ const icons: IconDefinition[] = [
   imports: [
     CommonModule,
     NzIconModule.forRoot(icons),
-    NzNotificationModule
+    NzNotificationModule,
+    NzMessageModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: DefaultInterceptor, multi: true }]
 })

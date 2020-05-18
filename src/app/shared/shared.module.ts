@@ -11,6 +11,10 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzTabsModule } from 'ng-zorro-antd/tabs';
+import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzDrawerModule } from 'ng-zorro-antd/drawer';
+import { NzTagModule } from 'ng-zorro-antd/tag';
 
 @NgModule({
   declarations: [],
@@ -30,7 +34,11 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
     ReactiveFormsModule,
     NzPageHeaderModule,
     NzSelectModule,
-    NzDividerModule
+    NzDividerModule,
+    NzTabsModule,
+    NzTableModule,
+    NzDrawerModule,
+    NzTagModule
   ]
 })
 export class SharedModule { }
