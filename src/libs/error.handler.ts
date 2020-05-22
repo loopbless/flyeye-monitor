@@ -1,9 +1,11 @@
-import { ErrorHandler, Inject } from '@angular/core';
-import { computeStackTrace } from './tracekit';
+import { ErrorHandler } from '@angular/core';
 
 export class MonitorErrorsHandler extends ErrorHandler {
+
   handleError(error) {
-    computeStackTrace(error);
+    if (window.onerror) {
+      window.onerror(error);
+    }
     super.handleError(error);
   }
 }

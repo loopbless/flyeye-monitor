@@ -1,0 +1,28 @@
+<nz-layout>
+  <nz-sider nzWidth="256px" [nzCollapsed]="true" nzTheme='light'>
+    <ul nz-menu nzMode='inline' class="btm-menu">
+      <li class="btm-menu-item"><button nz-button nzType="link" (click)="onBack()"><i nz-icon nzType="arrow-left"></i>Back</button></li>
+      <li class="btm-menu-item" nz-menu-item routerLink='./dashboard' [queryParams]="currentApp?{appId: currentApp}:null" nzMatchRouter>
+        <i nz-icon nzType='dashboard'></i>
+      </li>
+      <li class="btm-menu-item" nz-menu-item routerLink='./monitor' [queryParams]="currentApp?{appId: currentApp}:null" nzMatchRouter>
+        <i nz-icon nzType='monitor'></i>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-content>
+    <nz-header class="btm-nav-header">
+      <nz-select [hidden]="hiddenAppSelect" nzSize="large" [(ngModel)]="currentApp" (ngModelChange)="onChangeApp($event)" nzPlaceHolder="请选择应用">
+        <nz-option *ngFor="let option of applications" [nzValue]="option.id" [nzLabel]="option.name"></nz-option>
+      </nz-select>
+      <ul class="nav-setting">
+        <li class="ant-menu-item" (click)="onGoTo()">
+          <i nz-icon nzType="setting"></i>
+        </li>
+      </ul>
+    </nz-header>
+    <div class='btm-layout-container'>
+      <router-outlet></router-outlet>
+    </div>
+  </nz-content>
+</nz-layout>

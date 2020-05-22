@@ -1,8 +1,16 @@
 <section class="action-container">
   <button nz-button nzType="primary" nzGhost (click)="onAddAction()">新 增</button>
 </section>
-<nz-table #rowSelectionTable nzShowSizeChanger [nzData]="listData"
-          (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
+<nz-table
+  #rowSelectionTable
+  nzShowSizeChanger
+  [nzData]="listData"
+  [nzTotal]="total"
+  [nzFrontPagination]="false"
+  [(nzPageSize)]="pageSize"
+  (nzPageSizeChange)="loadData()"
+  [(nzPageIndex)]="pageIndex"
+  (nzPageIndexChange)="loadData()">
   <thead>
   <tr>
     <th
@@ -10,26 +18,28 @@
       [nzIndeterminate]="indeterminate"
       (nzCheckedChange)="onAllChecked($event)"
     ></th>
-    <th>Name</th>
-    <th>Age</th>
-    <th>Address</th>
+    <th>数据类型</th>
+    <th>数据标签</th>
+    <th>报警方式</th>
+    <th>报警源信息</th>
+    <th>内容模板</th>
+    <th nzAlign="center">操作</th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let data of rowSelectionTable.data">
     <td [nzChecked]="checkeds.has(data.id)" (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
-    <td>{{ data.name }}</td>
-    <td>{{ data.age }}</td>
-    <td>{{ data.address }}</td>
+    <td>{{ data.dataType }}</td>
+    <td>{{ data.dataTags }}</td>
+    <td>{{ data.mode }}</td>
+    <td>{{ data.target }}</td>
+    <td>{{ data.template }}</td>
+    <td nzAlign="center">
+      <a nz-button nzType="link"  (click)="onUpdate(data)">修改</a>
+      <nz-divider nzType="vertical"></nz-divider>
+      <a nz-button nzType="link" nzDanger nz-popconfirm nzPopconfirmTitle="你确认删除吗?" (nzOnConfirm)="onDelete(data)">删除</a>
+    </td>
   </tr>
   </tbody>
 </nz-table>
-<nz-drawer
-  [nzMaskClosable]="false"
-  [nzVisible]="visible"
-  nzWidth="45%"
-  nzPlacement="right"
-  nzTitle="添加报警"
-  (nzOnClose)="close()">
-  <app-alarm-form></app-alarm-form>
-</nz-drawer>
+

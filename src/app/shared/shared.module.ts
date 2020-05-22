@@ -15,6 +15,14 @@ import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzTagModule } from 'ng-zorro-antd/tag';
+import { NzAnchorModule } from 'ng-zorro-antd/anchor';
+import { NzResultModule } from 'ng-zorro-antd/result';
+import { NzCollapseModule } from 'ng-zorro-antd/collapse';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { NzPaginationModule } from 'ng-zorro-antd/pagination';
+import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
+import { NzListModule } from 'ng-zorro-antd/list';
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 
 @NgModule({
   declarations: [],
@@ -38,7 +46,15 @@ import { NzTagModule } from 'ng-zorro-antd/tag';
     NzTabsModule,
     NzTableModule,
     NzDrawerModule,
-    NzTagModule
+    NzTagModule,
+    NzAnchorModule,
+    NzResultModule,
+    NzCollapseModule,
+    NzSpinModule,
+    NzPaginationModule,
+    NzDescriptionsModule,
+    NzListModule,
+    NzPopconfirmModule
   ]
 })
 export class SharedModule { }

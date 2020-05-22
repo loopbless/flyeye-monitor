@@ -9,26 +9,12 @@ const routes: Routes = [
     component: LayoutComponent,
     canActivateChild: [DefaultGuard],
     children: [
-      {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
-      {
-        path: 'dashboard',
-        loadChildren: () =>
-          import('./routes/dashboard/dashboard.module').then(
-            (module) => module.DashboardModule
-          ),
-      },
+      {path: '', redirectTo: 'appstore/list', pathMatch: 'full'},
       {
         path: 'appstore',
         loadChildren: () =>
           import('./routes/application/application.module').then(
             (module) => module.ApplicationModule
-          ),
-      },
-      {
-        path: 'monitor',
-        loadChildren: () =>
-          import('./routes/monitor/monitor.module').then(
-            (module) => module.MonitorModule
           ),
       },
     ],

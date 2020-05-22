@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, VERSION, Version } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +10,11 @@ import { environment } from 'src/environments/environment';
 export class ApplicationApi {
   constructor(private http: HttpClient) {
   }
+  getDataTypes() {
+    return of([{label: '异常', value: 'ERROR'}]);
+  }
 
-  findList(page: { offset: number, limit: number }) {
+  findList(page: { offset: number; limit: number }) {
     return this.http.get(environment.contextPath.monitor + '/apps', {
       params: page as any,
       observe: 'response'
@@ -20,6 +24,20 @@ export class ApplicationApi {
   }
 
   find(id) {
-    return this.http.get(environment.contextPath.monitor + '/apps/' + id);
+    return this.http.get<any>(environment.contextPath.monitor + '/apps/' + id);
+  }
+
+  insert(app: {name: string, sourceMap: File, tags?: string[]}) {
+    const formData = new FormData();
+    for (const key in app) {
+      if(app.hasOwnProperty(key)) {
+        formData.append(key, app[key]);
+      }
+    }
+    return this.http.post<{id: number; appId: string}>(environment.contextPath.monitor + '/apps', formData);
+  }
+
+  countMonitors() {
+    return this.http.get<any>(environment.contextPath.monitor + '/apps/monitors')
   }
 }

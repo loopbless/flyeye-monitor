@@ -1194,6 +1194,13 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
+"@ctrl/ngx-codemirror@^3.1.3":
+  version "3.1.3"
+  resolved "https://registry.npm.taobao.org/@ctrl/ngx-codemirror/download/@ctrl/ngx-codemirror-3.1.3.tgz#6c6e918f40681d1fc1c5002e9892d3eed060044e"
+  integrity sha1-bG6Rj0BoHR/BxQAumJLT7tBgBE4=
+  dependencies:
+    "@types/codemirror" "0.0.89"
+
 "@istanbuljs/schema@^0.1.2":
   version "0.1.2"
   resolved "https://registry.npm.taobao.org/@istanbuljs/schema/download/@istanbuljs/schema-0.1.2.tgz#26520bf09abe4a5644cd5414e37125a8954241dd"
@@ -1275,6 +1282,13 @@
     semver "7.1.3"
     semver-intersect "1.4.0"
 
+"@types/codemirror@0.0.89":
+  version "0.0.89"
+  resolved "https://registry.npm.taobao.org/@types/codemirror/download/@types/codemirror-0.0.89.tgz#c3627a8a85a2b3a61110f05ab1949f92451e8662"
+  integrity sha1-w2J6ioWis6YREPBasZSfkkUehmI=
+  dependencies:
+    "@types/tern" "*"
+
 "@types/color-name@^1.1.1":
   version "1.1.1"
   resolved "https://registry.npm.taobao.org/@types/color-name/download/@types/color-name-1.1.1.tgz?cache=0&sync_timestamp=1588199606687&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fcolor-name%2Fdownload%2F%40types%2Fcolor-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
@@ -1284,6 +1298,11 @@
   version "1.0.9"
   resolved "https://registry.npm.taobao.org/@types/d3-timer/download/@types/d3-timer-1.0.9.tgz#aed1bde0cf18920d33f5d44839d73de393633fd3"
   integrity sha1-rtG94M8Ykg0z9dRIOdc945NjP9M=
+
+"@types/estree@*":
+  version "0.0.44"
+  resolved "https://registry.npm.taobao.org/@types/estree/download/@types/estree-0.0.44.tgz#980cc5a29a3ef3bea6ff1f7d021047d7ea575e21"
+  integrity sha1-mAzFopo+876m/x99AhBH1+pXXiE=
 
 "@types/events@*":
   version "3.0.0"
@@ -1340,6 +1359,13 @@
   version "0.1.2"
   resolved "https://registry.npm.taobao.org/@types/source-list-map/download/@types/source-list-map-0.1.2.tgz#0078836063ffaf17412349bba364087e0ac02ec9"
   integrity sha1-AHiDYGP/rxdBI0m7o2QIfgrALsk=
+
+"@types/tern@*":
+  version "0.23.3"
+  resolved "https://registry.npm.taobao.org/@types/tern/download/@types/tern-0.23.3.tgz#4b54538f04a88c9ff79de1f6f94f575a7f339460"
+  integrity sha1-S1RTjwSojJ/3neH2+U9XWn8zlGA=
+  dependencies:
+    "@types/estree" "*"
 
 "@types/webpack-sources@^0.1.5":
   version "0.1.7"
@@ -2521,6 +2547,11 @@ codelyzer@^5.1.2:
     semver-dsl "^1.0.1"
     source-map "^0.5.7"
     sprintf-js "^1.1.2"
+
+codemirror@^5.54.0:
+  version "5.54.0"
+  resolved "https://registry.npm.taobao.org/codemirror/download/codemirror-5.54.0.tgz#82b6adf662b29eeb7b867fe7839d49e25e4a0b38"
+  integrity sha1-grat9mKynut7hn/ng51J4l5KCzg=
 
 collection-visit@^1.0.0:
   version "1.0.0"

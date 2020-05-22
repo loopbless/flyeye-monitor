@@ -1,15 +1,33 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { LeftNavigationLayoutComponent } from '@/layouts';
 import { AppListComponent } from './list/list.component';
 import { AppProfileComponent } from './profile/profile.component';
-import { ListComponent } from '../alarm/list/list.component';
+import { AppFormComponent } from './form/form.component';
 
 const routes: Routes = [
-  {path: '', component: AppListComponent},
+  { path: 'list', component: AppListComponent },
   {
-    path: ':id',
-    component: AppProfileComponent,
-    children: [{path: '', component: ListComponent}]
+    path: '',
+    component: LeftNavigationLayoutComponent,
+    children: [
+      { path: 'profile', component: AppProfileComponent },
+      { path: 'new', component: AppFormComponent },
+      {
+        path: 'monitor',
+        loadChildren: () =>
+          import('../monitor/monitor.module').then(
+            (module) => module.MonitorModule
+          ),
+      },
+      {
+        path: 'dashboard',
+        loadChildren: () =>
+          import('../dashboard/dashboard.module').then(
+            (module) => module.DashboardModule
+          ),
+      },
+    ]
   },
 ];
 

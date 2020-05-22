@@ -1,0 +1,72 @@
+<nz-page-header class="btm-page-header">
+  <nz-page-header-title>创建应用</nz-page-header-title>
+  <nz-page-header-subtitle>创建一个监控应用</nz-page-header-subtitle>
+  <nz-page-header-footer>
+    <nz-tabset [(nzSelectedIndex)]="tabIndex">
+      <nz-tab nzTitle="应用信息">
+        <ng-container *ngTemplateOutlet="app"></ng-container>
+      </nz-tab>
+      <nz-tab nzTitle="报警设置" [nzDisabled]="!queryId">
+        <ng-container *ngTemplateOutlet="alarm"></ng-container>
+      </nz-tab>
+    </nz-tabset>
+  </nz-page-header-footer>
+</nz-page-header>
+<ng-template #error let-control>
+  <ng-container *ngIf="control.hasError('required')">该项不能为空</ng-container>
+  <ng-container *ngIf="control.hasError('type')">文件类型不正确！</ng-container>
+</ng-template>
+<ng-template #app>
+  <nz-card>
+    <form nz-form [formGroup]="formGroup" *ngIf="!queryId;else result">
+      <nz-form-item>
+        <nz-form-label nzSpan="8" nzRequired>应用名称</nz-form-label>
+        <nz-form-control nzSpan="8" [nzErrorTip]="error">
+          <ng-container *ngIf="data && data.name;else nameTmpl">
+            {{formGroup.get('name').value}}
+          </ng-container>
+          <ng-template #nameTmpl>
+            <input nz-input formControlName="name" placeholder="请输入应用名称">
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-divider nzText="版本信息" nzType="horizontal" nzOrientation="left" nzDashed></nz-divider>
+      <app-version-form [sourceMap]="formGroup.get('sourceMap')" [tags]="formGroup.get('tags')"></app-version-form>
+      <nz-form-item>
+        <nz-form-control nzOffset="8" nzSpan="12">
+          <button nz-button nzType="primary" (click)="onSubmit()">提 交</button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+    <ng-template #result>
+      <nz-result
+        nzTitle="创建成功"
+        nzStatus="success"
+        nzSubTitle="请按照一下要求调整项目"
+      >
+        <div nz-result-content>
+          <div class="desc">
+            <h4 nz-title>The content you submitted has the following error:</h4>
+            <p nz-paragraph>
+              <i nz-icon nzType="close-circle"></i>
+              Your account has been frozen <a>Thaw immediately &gt;</a>
+            </p>
+            <p nz-paragraph>
+              <i nz-icon nzType="close-circle"></i>
+              Your account is not yet eligible to apply <a>Apply immediately &gt;</a>
+            </p>
+          </div>
+        </div>
+        <div nz-result-extra>
+          <button nz-button (click)="onGoTo()">返 回</button>
+          <button nz-button nzType="primary" (click)="tabIndex = 1">设置报警</button>
+        </div>
+      </nz-result>
+    </ng-template>
+  </nz-card>
+</ng-template>
+<ng-template #alarm>
+  <nz-card>
+    <app-alarm-list></app-alarm-list>
+  </nz-card>
+</ng-template>

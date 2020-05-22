@@ -5,8 +5,8 @@ import { MonitorListComponent } from './list/list.component';
 
 
 const routes: Routes = [
-  { path: '', component: MonitorComponent },
-  { path: 'list', component: MonitorListComponent },
+  { path: '', component: MonitorListComponent },
+  { path: ':id', component: MonitorComponent },
 ];
 
 @NgModule({

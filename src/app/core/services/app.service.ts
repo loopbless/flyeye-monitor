@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { ApplicationApi } from '@apis/application';
-import { BehaviorSubject } from 'rxjs';
-import { filter, take, tap } from 'rxjs/operators';
+import { ApplicationApi } from '@/apis/application';
+import { BehaviorSubject, of } from 'rxjs';
+import { filter, map, switchMap, take, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,12 @@ export class AppService {
   }
 
   get appData$() {
-    return this.applications$.pipe(filter(data => data !== null), take(1));
+    return this.applications$.pipe(switchMap(data => {
+      if(data===null) {
+        return this.loadData().pipe(map(({ data: list }) => list));
+      }
+      return of(data);
+    }), filter(data => data !== null), take(1));
   }
 
   loadData() {

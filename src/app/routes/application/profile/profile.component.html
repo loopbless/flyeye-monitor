@@ -1,72 +1,38 @@
 <nz-page-header class="btm-page-header">
-  <nz-page-header-title>创建应用</nz-page-header-title>
-  <nz-page-header-subtitle>创建一个监控应用</nz-page-header-subtitle>
-  <nz-page-header-extra>
-    <button nz-button nzType="link"><i nz-icon nzType="arrow-left"></i>返回</button>
-  </nz-page-header-extra>
+  <nz-page-header-title>应用设置</nz-page-header-title>
+  <nz-page-header-subtitle>设置应用监控参数</nz-page-header-subtitle>
+  <nz-page-header-footer>
+    <nz-tabset [(nzSelectedIndex)]="tabIndex">
+      <nz-tab nzTitle="应用信息">
+        <ng-container *ngTemplateOutlet="app"></ng-container>
+      </nz-tab>
+      <nz-tab nzTitle="报警设置">
+        <ng-container *ngTemplateOutlet="alarm"></ng-container>
+      </nz-tab>
+    </nz-tabset>
+  </nz-page-header-footer>
 </nz-page-header>
-<div nz-row>
-  <nz-card nz-col nzMd="24" nzLg="12" nzTitle="应用信息">
-    <form nz-form [formGroup]="formGroup">
-      <nz-form-item>
-        <nz-form-label nzSpan="8" nzRequired>应用名称</nz-form-label>
-        <nz-form-control nzSpan="12">
-          <ng-container *ngIf="data && data.name;else nameTmpl">
-            {{formGroup.get('name').value}}
-          </ng-container>
-          <ng-template #nameTmpl>
-            <input nz-input formControlName="name" placeholder="请输入应用名称">
-          </ng-template>
-        </nz-form-control>
-      </nz-form-item>
-      <nz-divider nzText="版本信息" nzType="horizontal" nzOrientation="left" nzDashed></nz-divider>
-      <nz-form-item>
-        <nz-form-label nzSpan="8">SourceMap</nz-form-label>
-        <nz-form-control nzSpan="12">
-          <ng-container *ngIf="data && data.name;else sourceTmpl">
-            {{data.name}}
-          </ng-container>
-          <ng-template #sourceTmpl>
-            <nz-upload [nzFileList]="fileList">
-              <button nz-button><i nz-icon nzType="upload"></i>Upload</button>
-            </nz-upload>
-          </ng-template>
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-label nzSpan="8">版本标签</nz-form-label>
-        <nz-form-control nzSpan="12">
-          <ng-container *ngIf="data && data.name;else versionTmpl">
-            {{formGroup.get('tags').value}}
-          </ng-container>
-          <ng-template #versionTmpl>
-            <nz-tag *ngFor="let tag of formGroup.get('tags').value; let i = index" nzMode="closeable" (nzOnClose)="onTagClose(tag)">
-            {{ tag }}
-            </nz-tag>
-            <nz-tag *ngIf="!tagVisible" class="editable-tag" nzNoAnimation (click)="showInput()"> <i nz-icon nzType="plus"></i> New Tag</nz-tag>
-            <input
-              #tagElem
-              nz-input
-              nzSize="small"
-              *ngIf="tagVisible"
-              type="text"
-              maxlength="20"
-              formControlName="newTag"
-              style="width: 78px;"
-              (blur)="onAddTag()"
-              (keydown.enter)="onAddTag()"
-            />
-          </ng-template>
-        </nz-form-control>
-      </nz-form-item>
-      <nz-form-item>
-        <nz-form-control nzOffset="8" nzSpan="12">
-          <button nz-button nzType="primary" (click)="onSubmit()">提 交</button>
-        </nz-form-control>
-      </nz-form-item>
-    </form>
+<ng-template #error let-control>
+  <ng-container *ngIf="control.hasError('required')">该项不能为空</ng-container>
+  <ng-container *ngIf="control.hasError('type')">文件类型不正确！</ng-container>
+</ng-template>
+<ng-template #app>
+  <nz-card>
+    <nz-form-item>
+      <nz-form-label nzSpan="8" nzRequired>应用名称</nz-form-label>
+      <nz-form-control nzSpan="8" [nzErrorTip]="error">
+        <ng-container *ngIf="!editable;else nameTmpl">
+          {{data?.name}}
+        </ng-container>
+        <ng-template #nameTmpl>
+          <input nz-input placeholder="请输入应用名称">
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
   </nz-card>
-  <nz-card nz-col nzMd="24" nzLg="12" nzTitle="警报设置">
-    <router-outlet></router-outlet>
+</ng-template>
+<ng-template #alarm>
+  <nz-card>
+    <app-alarm-list></app-alarm-list>
   </nz-card>
-</div>
+</ng-template>

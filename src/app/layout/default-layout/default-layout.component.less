@@ -27,7 +27,9 @@
   background-color: #fff;
   display: flex;
   justify-content: space-between;
-
+  box-shadow: rgba(0, 0, 0, 0.08) 0 1px 4px 0;
+  position: relative;
+  z-index: 1;
   .btm-header-right {
     width: 100px;
     margin-right: 24px;
@@ -46,37 +48,9 @@
 .btm-header-left {
   display: flex;
   align-items: center;
-
-  nz-select {
-    min-width: 200px;
-    position: relative;
-    &:before {
-      content: '';
-      position: absolute;
-      height: 40%;
-      z-index: 1;
-      top: 0;
-      bottom: 0;
-      margin: auto;
-      border-left: 1px dashed #f0f0f0;
-    }
-  }
-
-  ::ng-deep {
-    .ant-select-selector {
-      padding: 0 16px !important;
-      border: 0;
-      box-shadow: none !important;
-    }
-  }
 }
 
 .btm-content-wrapper {
-  display: flex;
-
-  .btm-layout-container {
-    flex: 1;
-  }
 
   ::ng-deep {
     .ant-menu-vertical {
@@ -85,12 +59,4 @@
   }
 }
 
-.btm-menu {
-  .btm-menu-item {
-    margin: 0;
-    cursor: pointer;
-    height: 64px;
-    line-height: 64px;
-    outline: 0;
-  }
-}
+

@@ -2,8 +2,8 @@
   <div nz-card-grid class="btm-app-item btm-app-plus" (click)="onGoTo('/appstore/new')"><i nz-icon nzType='plus'></i></div>
   <div nz-card-grid class="btm-app-item" *ngFor="let item of list">
     <div class="btm-app-item-header">
-      <div><nz-badge nzStatus="processing" class="btm-badge-error"></nz-badge> {{item.name}}</div>
-      <i nz-icon nzType="setting" (click)="onGoTo('/appstore/' + item.id)"></i>
+      <div><nz-badge nzStatus="processing" class="btm-badge-error"></nz-badge> {{item[0].name}}</div>
+      <i nz-icon nzType="eye" (click)="onGoTo('/appstore/dashboard', {appId: item[0].id})"></i>
     </div>
     <div #chart></div>
   </div>

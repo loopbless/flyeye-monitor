@@ -11,6 +11,7 @@ import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { MonitorModule } from '../libs/monitor.module';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { HttpClientModule } from '@angular/common/http';
     NzBreadCrumbModule,
     ReactiveFormsModule,
     HttpClientModule,
+    MonitorModule.forRoot({appId: '1aade23c045230cd9a367ae2c72ce07c'})
   ],
   providers: [
     {provide: ErrorHandler, useClass: MonitorErrorsHandler}

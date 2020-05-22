@@ -12,18 +12,13 @@ export class DefaultLayoutComponent implements OnInit {
 
   user = this.passport.getUser();
 
-  currentApp: number;
 
-  applications: any[] = [];
 
   constructor(private passport: PassportService,
-              private app: AppService,
               private router: Router) { }
 
   ngOnInit(): void {
-    this.app.loadData().subscribe(({data}) => {
-      this.applications = data;
-    });
+
   }
 
   onLogout() {
@@ -31,7 +26,5 @@ export class DefaultLayoutComponent implements OnInit {
     this.router.navigate(['/passport/login']);
   }
 
-  onChangeApp(event: any) {
 
-  }
 }

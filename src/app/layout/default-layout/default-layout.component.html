@@ -2,9 +2,6 @@
   <nz-header class="btm-header">
     <div class="btm-header-left">
       <div class="btm-logo"><span>Y</span><span>E</span><span>Y</span></div>
-      <nz-select nzSize="large" [(ngModel)]="currentApp" (ngModelChange)="onChangeApp($event)" nzPlaceHolder="请选择应用">
-        <nz-option *ngFor="let option of applications" [nzValue]="option.id" [nzLabel]="option.name"></nz-option>
-      </nz-select>
     </div>
     <div class="btm-header-right">
       <nz-avatar nzIcon="user" nzSrc="//zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"></nz-avatar>
@@ -19,17 +16,7 @@
       </nz-dropdown-menu>
     </div>
   </nz-header>
-
   <nz-content class="btm-content-wrapper">
-    <nz-sider nzWidth="256px" [nzCollapsed]="true" nzTheme='light'>
-      <ul nz-menu nzMode='inline' class="btm-menu">
-        <li class="btm-menu-item" nz-menu-item routerLink='/dashboard' nzMatchRouter nzMatchRouterExact><i nz-icon nzType='dashboard'></i></li>
-        <li class="btm-menu-item" nz-menu-item routerLink='/appstore' nzMatchRouter><i nz-icon nzType='appstore'></i></li>
-        <li class="btm-menu-item" nz-menu-item routerLink='/monitor' nzMatchRouter><i nz-icon nzType='monitor'></i></li>
-      </ul>
-    </nz-sider>
-    <div class='btm-layout-container'>
-      <router-outlet></router-outlet>
-    </div>
+    <router-outlet></router-outlet>
   </nz-content>
 </nz-layout>

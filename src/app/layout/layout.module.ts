@@ -6,11 +6,12 @@ import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { DefaultLayoutComponent } from './default-layout/default-layout.component';
 import { SharedModule } from '../shared/shared.module';
+import { LeftNavigationLayoutComponent } from './left-navigation-layout/left-navigation-layout.component';
 
 
 
 @NgModule({
-  declarations: [DefaultLayoutComponent],
+  declarations: [DefaultLayoutComponent, LeftNavigationLayoutComponent],
   imports: [
     SharedModule,
     NzLayoutModule,

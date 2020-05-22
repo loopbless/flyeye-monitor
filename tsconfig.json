@@ -17,7 +17,8 @@
     ],
     "paths": {
       "@bigtree/monitor": ["src/libs/index.ts"],
-      "@apis/*": ["src/app/core/apis/*.api.ts"]
+      "@/apis/*": ["src/app/core/apis/*.api.ts"],
+      "@/layouts": ["src/app/layout/index.ts"]
     }
   },
   "angularCompilerOptions": {

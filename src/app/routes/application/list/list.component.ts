@@ -1,16 +1,9 @@
-import {
-  AfterViewInit,
-  ChangeDetectionStrategy, ChangeDetectorRef,
-  Component,
-  ElementRef,
-  OnInit,
-  QueryList,
-  ViewChildren
-} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { Chart } from '@antv/g2';
 import { Router } from '@angular/router';
 import { AppService } from '../../../core/services/app.service';
 import { delay } from 'rxjs/operators';
+import { ApplicationApi } from '@/apis/application';
 
 @Component({
   selector: 'app-app-list',
@@ -23,42 +16,55 @@ export class AppListComponent implements OnInit, AfterViewInit {
 
   @ViewChildren('chart') charts: QueryList<ElementRef<HTMLDivElement>>;
 
-  constructor(private app: AppService,
+  constructor(private app: ApplicationApi,
               private router: Router) {
   }
 
   ngOnInit(): void {
+
   }
 
 
   ngAfterViewInit(): void {
-    this.app.appData$.pipe(delay(0)).subscribe(({data}) => {
-      this.list = data;
+    this.app.countMonitors().subscribe((data) => {
+      const map = new Map();
+      data.forEach((item) => {
+        if(item.name) {
+          if (map.has(item.name)) {
+            const values = map.get(item.name);
+            map.set(item.name, [...values, item]);
+          } else {
+            map.set(item.name, [item]);
+          }
+        }
+      });
+      this.list = Array.from(map.values());
       this.charts.changes.subscribe(list => {
-        list.forEach(item => {
-          this.createChart(item.nativeElement);
+        list.forEach((item, index) => {
+          this.createChart(item.nativeElement, this.list[index]);
         });
       });
     });
   }
 
-  createChart(dom: HTMLDivElement) {
-    const data = [
-      { label: 'Api', type: 'all', value: 2800 },
-      { label: 'Api', type: 'done', value: 2260 },
-      { label: 'Fe', type: 'all', value: 1800 },
-      { label: 'Fe', type: 'done', value: 1300 },
-    ];
+  createChart(dom: HTMLDivElement, sourceData) {
+
     const chart = new Chart({
       container: dom,
       height: 200,
       autoFit: true,
     });
-    chart.data(data);
+    chart.data(sourceData);
 
-    chart.coordinate()
-      .transpose()
-      .scale(1, -1);
+    chart.scale({
+      value: {
+        alias: '访问数',
+        nice: true,
+      },
+      nums: {
+        alias: '数量',
+      },
+    });
 
     chart.tooltip({
       showMarkers: false,
@@ -66,20 +72,13 @@ export class AppListComponent implements OnInit, AfterViewInit {
     });
 
     chart.interval()
-      .position('label*value')
-      .color('type')
-      .adjust([
-        {
-          type: 'dodge',
-          marginRatio: 0,
-        },
-      ]);
+      .position('tags*nums');
     chart.interaction('active-region');
     chart.render();
   }
 
-  onGoTo(route: string) {
-    this.router.navigate([route]);
+  onGoTo(route: string, params?: any) {
+    this.router.navigate([route], { queryParams: params });
   }
 
 }

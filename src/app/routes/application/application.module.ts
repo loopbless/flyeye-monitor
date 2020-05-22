@@ -5,13 +5,17 @@ import { AppListComponent } from './list/list.component';
 import { SharedModule } from '../../shared/shared.module';
 import { AppProfileComponent } from './profile/profile.component';
 import { AlarmModule } from '../alarm/alarm.module';
+import { AppFormComponent } from './form/form.component';
+import { VersionFormComponent } from './version-form/version-form.component';
+import { LayoutModule } from '@/layouts';
 
 
 @NgModule({
-  declarations: [AppListComponent, AppProfileComponent],
+  declarations: [AppListComponent, AppProfileComponent, AppFormComponent, VersionFormComponent],
   imports: [
     SharedModule,
     AlarmModule,
+    LayoutModule,
     ApplicationRoutingModule,
   ]
 })
