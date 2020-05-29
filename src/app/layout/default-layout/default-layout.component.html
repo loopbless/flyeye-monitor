@@ -11,6 +11,7 @@
       </a>
       <nz-dropdown-menu #menu="nzDropdownMenu">
         <ul nz-menu nzSelectable>
+          <li nz-menu-item (click)="onLogout()">个人中心</li>
           <li nz-menu-item (click)="onLogout()">退出登录</li>
         </ul>
       </nz-dropdown-menu>

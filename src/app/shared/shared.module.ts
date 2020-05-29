@@ -23,13 +23,18 @@ import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { NzListModule } from 'ng-zorro-antd/list';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { SafeDomPipe } from './pipes/safe-dom.pipe';
+
+const PIPES = [SafeDomPipe];
 
 @NgModule({
-  declarations: [],
+  declarations: [...PIPES],
   imports: [
     CommonModule
   ],
   exports: [
+    ...PIPES,
     CommonModule,
     NzFormModule,
     NzIconModule,
@@ -54,7 +59,8 @@ import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
     NzPaginationModule,
     NzDescriptionsModule,
     NzListModule,
-    NzPopconfirmModule
+    NzPopconfirmModule,
+    NzModalModule
   ]
 })
 export class SharedModule { }

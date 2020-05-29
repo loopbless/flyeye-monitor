@@ -8,6 +8,9 @@
       <li class="btm-menu-item" nz-menu-item routerLink='./monitor' [queryParams]="currentApp?{appId: currentApp}:null" nzMatchRouter>
         <i nz-icon nzType='monitor'></i>
       </li>
+      <li class="btm-menu-item" nz-menu-item routerLink='./profile' [queryParams]="currentApp?{appId: currentApp}:null" nzMatchRouter>
+        <i nz-icon nzType='setting'></i>
+      </li>
     </ul>
   </nz-sider>
   <nz-content>
@@ -16,9 +19,9 @@
         <nz-option *ngFor="let option of applications" [nzValue]="option.id" [nzLabel]="option.name"></nz-option>
       </nz-select>
       <ul class="nav-setting">
-        <li class="ant-menu-item" (click)="onGoTo()">
-          <i nz-icon nzType="setting"></i>
-        </li>
+<!--        <li class="ant-menu-item" (click)="onGoTo()">-->
+<!--          <i nz-icon nzType="setting"></i>-->
+<!--        </li>-->
       </ul>
     </nz-header>
     <div class='btm-layout-container'>

@@ -26,10 +26,10 @@ export class AppListComponent implements OnInit, AfterViewInit {
 
 
   ngAfterViewInit(): void {
-    this.app.countMonitors().subscribe((data) => {
+    this.app.countEvents().subscribe((data) => {
       const map = new Map();
       data.forEach((item) => {
-        if(item.name) {
+        if (item.name) {
           if (map.has(item.name)) {
             const values = map.get(item.name);
             map.set(item.name, [...values, item]);

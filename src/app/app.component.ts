@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MonitorReportService } from '../libs/monitor-report.service';
 
 @Component({
   selector: 'app-root',
@@ -7,10 +6,10 @@ import { MonitorReportService } from '../libs/monitor-report.service';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private report: MonitorReportService) {
+  constructor() {
   }
 
   ngOnInit(): void {
-    // throw new Error('Report Error!');
+    throw new Error('Report Error!');
   }
 }

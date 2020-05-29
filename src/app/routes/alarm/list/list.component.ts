@@ -32,13 +32,14 @@ export class ListComponent implements OnInit {
 
   loadData() {
     const { appId } = this.route.snapshot.queryParams;
-    this.alarm.findAll(
-      { appId, offset: (this.pageIndex - 1) * this.pageSize, limit: this.pageSize }
-    ).subscribe(({ data, total }) => {
-      console.log(data, total);
-      this.listData = data;
-      this.total = total;
-    });
+    if (appId) {
+      this.alarm.findAll(
+        { appId, offset: (this.pageIndex - 1) * this.pageSize, limit: this.pageSize }
+      ).subscribe(({ data, total }) => {
+        this.listData = data;
+        this.total = total;
+      });
+    }
   }
 
   onAllChecked($event: boolean) {
@@ -70,7 +71,7 @@ export class ListComponent implements OnInit {
       nzPlacement: 'right',
       nzTitle: '添加报警',
       nzContent: AlarmFormComponent,
-      nzContentParams: {formData: data}
+      nzContentParams: { formData: data }
     });
   }
 

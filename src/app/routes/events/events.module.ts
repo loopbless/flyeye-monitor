@@ -1,20 +1,20 @@
 import { NgModule } from '@angular/core';
 
 import { SharedModule } from '../../shared/shared.module';
-import { MonitorRoutingModule } from './monitor-routing.module';
-import { MonitorListComponent } from './list/list.component';
-import { MonitorComponent } from './monitor/monitor.component';
+import { EventsRoutingModule } from './events-routing.module';
+import { EventsListComponent } from './list/list.component';
+import { EventsProfileComponent } from './profile/profile.component';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import 'codemirror/mode/javascript/javascript';
 import 'codemirror/mode/markdown/markdown';
 
 @NgModule({
-  declarations: [MonitorListComponent, MonitorComponent],
+  declarations: [EventsListComponent, EventsProfileComponent],
   imports: [
     SharedModule,
     CodemirrorModule,
-    MonitorRoutingModule,
+    EventsRoutingModule,
   ]
 })
-export class MonitorModule {
+export class EventsModule {
 }

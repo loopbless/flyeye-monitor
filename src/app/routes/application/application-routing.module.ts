@@ -16,8 +16,8 @@ const routes: Routes = [
       {
         path: 'monitor',
         loadChildren: () =>
-          import('../monitor/monitor.module').then(
-            (module) => module.MonitorModule
+          import('../events/events.module').then(
+            (module) => module.EventsModule
           ),
       },
       {

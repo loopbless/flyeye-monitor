@@ -6,13 +6,13 @@ import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class MonitorApi {
+export class EventsApi {
 
   constructor(private http: HttpClient) {
   }
 
   findAll(page: { offset: number; limit: number; appId: number; tags?: string[]; currentUrl?: string}) {
-    return this.http.get<any[]>(`${environment.contextPath.monitor}/monitors`, {
+    return this.http.get<any[]>(`${environment.contextPath.monitor}/events`, {
       params: page as any,
       observe: 'response'
     }).pipe(map((res => {

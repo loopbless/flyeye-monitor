@@ -88,7 +88,6 @@ export function computeStackTrace(ex: any): StackTrace {
 }
 
 /** JSDoc */
-// tslint:disable-next-line:cyclomatic-complexity
 function computeStackTraceFromStackProp(ex: any): StackTrace | null {
   // tslint:disable:no-conditional-assignment
   if (!ex || !ex.stack) {

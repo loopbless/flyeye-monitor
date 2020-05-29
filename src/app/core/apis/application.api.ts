@@ -37,7 +37,11 @@ export class ApplicationApi {
     return this.http.post<{id: number; appId: string}>(environment.contextPath.monitor + '/apps', formData);
   }
 
-  countMonitors() {
-    return this.http.get<any>(environment.contextPath.monitor + '/apps/monitors')
+  countEvents() {
+    return this.http.get<any>(environment.contextPath.monitor + '/apps/events')
+  }
+
+  findFrameworkAll() {
+    return this.http.get<any[]>(environment.contextPath.monitor + '/frameworks');
   }
 }

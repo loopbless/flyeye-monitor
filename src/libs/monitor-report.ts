@@ -1,13 +1,8 @@
-import { Inject, Injectable, InjectionToken, VERSION } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { NavigationEnd, Router } from '@angular/router';
 import { computeStackTrace } from './tracekit';
-import { filter } from 'rxjs/operators';
 
 
-export const MONITOR_CONFIG = new InjectionToken('monitor_config');
 
-export enum MonitorType {
+export enum EventType {
   ERROR = 'ERROR', // 错误、异常
 }
 
@@ -16,71 +11,53 @@ export class ReportVo {
   platform: string;
   version: string;
   appId: string;
-  type: MonitorType;
+  type: EventType;
   tags: string[];
   timestamp: number;
   currentUrl: string;
+  language: string = navigator.language || (navigator as any).userLanguage;
   fromUrl?: string;
   data: any;
 }
 
-@Injectable()
-export class MonitorReportService {
-  fromUrl: string;
-  currentUrl: string;
+export class MonitorReport {
+  settings: any;
 
-  constructor(private http: HttpClient,
-              private router: Router,
-              @Inject(MONITOR_CONFIG) private config: any) {
-    this.router.events.pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe((data: NavigationEnd) => {
-        this.fromUrl = this.currentUrl;
-        this.currentUrl = data.url;
-      });
+  constructor() {
     window.onerror = this.errorListener.bind(this);
+  }
+
+  static settings(data: any) {
+    if (data) {
+      this.settings = data;
+    }
   }
 
   errorListener(event) {
     this.report({
-      type: MonitorType.ERROR,
+      type: EventType.ERROR,
       tags: ['javascript'],
       data: event
-    })
+    });
   }
 
   report(params: {
-    type: MonitorType,
+    type: EventType,
     tags: string[],
     data: Error | any;
-  }) {
+  } = { type: EventType.ERROR, tags: ['javascript'], data: null }) {
     const data = new ReportVo();
     data.timestamp = Date.now();
-    data.appId = this.config.appId;
-    data.platform = 'angular';
-    data.version = VERSION.full;
     data.type = params.type;
     data.tags = params.tags;
-    if (this.fromUrl) {
-      data.fromUrl = this.fromUrl;
-    }
-    if (this.currentUrl || this.router.url) {
-      data.currentUrl = this.currentUrl || this.router.url;
-    }
     if (params.data) {
       if (params.data instanceof Error) {
         data.data = JSON.stringify(computeStackTrace(params.data));
       } else {
-        const paramsData: any = {};
-        const keys = Object.keys(params.data);
-        keys.forEach((key: string) => {
-          if (params.data[key] !== null && params.data[key] !== undefined) {
-            paramsData[key] = params.data[key];
-          }
-        });
-        data.data = JSON.stringify(paramsData);
+        data.data = JSON.stringify(params.data);
       }
     }
-    this.fetch(`http://localhost:3000/monitors`, data, 'POST');
+    this.fetch(this.settings.domain || `http://localhost:3000/monitors`, data, 'POST');
   }
 
 
@@ -91,6 +68,7 @@ export class MonitorReportService {
     return new URLSearchParams(arr).toString();
   }
 
+  // post  navigator.sendBeacon
   async fetch(url = '', data = {}, type = 'GET', method = 'fetch') {
     type = type.toUpperCase();
     const searchStr = this.obj2String(data);

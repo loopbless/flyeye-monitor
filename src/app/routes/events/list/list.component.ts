@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { MonitorApi } from '@/apis/monitor';
+import { EventsApi } from '@/apis/events';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-monitor-list',
+  selector: 'app-events-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.less']
 })
-export class MonitorListComponent implements OnInit {
+export class EventsListComponent implements OnInit {
 
   pageIndex = 1;
   limit = 10;
@@ -15,7 +15,7 @@ export class MonitorListComponent implements OnInit {
   list = [];
   loading = false;
   data: any = null;
-  constructor(private monitor: MonitorApi,
+  constructor(private monitor: EventsApi,
               private router: Router,
               private route: ActivatedRoute) {
   }

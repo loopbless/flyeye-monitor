@@ -18,6 +18,7 @@ export class AppFormComponent implements OnInit {
   @ViewChild('tagElem') tagElem: ElementRef<HTMLInputElement>;
   loading = false;
   queryId: number;
+  frameworks = [];
   constructor(private route: ActivatedRoute,
               private fb: FormBuilder,
               private router: Router,
@@ -29,6 +30,7 @@ export class AppFormComponent implements OnInit {
     this.loadData();
     this.formGroup = this.fb.group({
       name: [null, Validators.required],
+      framework: [null, Validators.required],
       sourceMap: [null, [Validators.required, (control: FormControl) => {
         const value = control.value;
         return value && value.type && value.type !== 'application/zip' ? { type: true } : null;
@@ -45,6 +47,9 @@ export class AppFormComponent implements OnInit {
         this.data = data;
       });
     }
+    this.app.findFrameworkAll().subscribe(data => {
+      this.frameworks = data;
+    })
   }
 
   onSubmit() {
@@ -67,5 +72,10 @@ export class AppFormComponent implements OnInit {
 
   onGoTo() {
     this.router.navigate(['/appstore/list']);
+  }
+
+  onSelectedFramework(item: any) {
+    console.log(item.id)
+    this.formGroup.get('framework').setValue(item.id);
   }
 }

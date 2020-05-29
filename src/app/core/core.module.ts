@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { IconDefinition } from '@ant-design/icons-angular';
@@ -19,6 +19,7 @@ import {
   DeleteOutline,
   EyeOutline
 } from '@ant-design/icons-angular/icons';
+import { ErrorHandlerService } from './services/error-handler.service';
 
 const icons: IconDefinition[] = [
   UserOutline,
@@ -42,7 +43,10 @@ const icons: IconDefinition[] = [
     NzNotificationModule,
     NzMessageModule
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: DefaultInterceptor, multi: true }]
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: DefaultInterceptor, multi: true },
+    { provide: ErrorHandler, useClass: ErrorHandlerService }
+  ]
 })
 export class CoreModule {
 }

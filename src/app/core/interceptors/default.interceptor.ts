@@ -1,24 +1,23 @@
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { NzNotificationService, NzNotificationRef } from 'ng-zorro-antd/notification';
-import {
-  HttpInterceptor,
-  HttpRequest,
-  HttpHandler,
-  HttpEvent, HttpErrorResponse, HttpResponse,
-} from '@angular/common/http';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
+import { NzNotificationRef, NzNotificationService } from 'ng-zorro-antd/notification';
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, } from '@angular/common/http';
 import { PassportService } from '../services/passport.service';
 import { Router } from '@angular/router';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, filter, take, takeUntil } from 'rxjs/operators';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { LocalStorage } from '../services/local-storage.service';
 
 @Injectable()
 export class DefaultInterceptor implements HttpInterceptor {
 
   loginNotification: NzNotificationRef;
 
+  cancellation$ = new BehaviorSubject<boolean>(false);
+
   constructor(private passport: PassportService,
               private router: Router,
+              private storage: LocalStorage,
               private message: NzMessageService,
               private notification: NzNotificationService) {
   }
@@ -27,11 +26,15 @@ export class DefaultInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
+    // 取消状态下不发送任何请求，并取消掉正在进行中的请求
+    if (this.cancellation$.getValue()) {
+      return of();
+    }
     const request = this.passportHandler(req);
     return next.handle(request).pipe(
+      takeUntil(this.cancellation$.pipe(filter(data => !!data), take(1))),
       catchError((error) => {
         if (error instanceof HttpErrorResponse) {
-          console.log(error)
           if (error.status === 401) {
             this.loginFailure();
           } else {
@@ -57,7 +60,9 @@ export class DefaultInterceptor implements HttpInterceptor {
 
   loginFailure(notice = true) {
     if (!this.loginNotification) {
+      this.cancellation$.next(true);
       if (notice) {
+        this.storage.clear();
         this.loginNotification = this.notification.create(
           'info',
           '登录失效',
@@ -65,6 +70,7 @@ export class DefaultInterceptor implements HttpInterceptor {
         );
         this.loginNotification.onClose.subscribe(() => {
           this.loginNotification = null;
+          this.cancellation$.next(false);
         });
       }
       this.router.navigate(['/passport/login']);
